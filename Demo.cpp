@@ -10,8 +10,9 @@
 
 using namespace std;
 
-int main() {
+int main() 
+{
 	WarGame::DemoGame demoGame;
 	cout << "The winner is:\n " << demoGame.play() << endl;
-    return 0;
+  return 0;
 }

@@ -17,11 +17,10 @@ namespace WarGame
 
     void Board::move(uint player_number, std::pair<int, int> source, MoveDIR direction)
     {
-        Soldier *current = board[source.first][source.second];
         std::pair<int, int> nextStep;
-        if (current == nullptr)
+        if (board[source.first][source.second] == nullptr)
             throw std::invalid_argument("there is no Soldier at this current position!");
-        else if (current->getTeamId() != player_number)
+        else if (board[source.first][source.second]->getTeamId() != player_number)
             throw std::invalid_argument("the Soldier in this current position does not belong to you!");
         switch (direction)
         {
@@ -59,8 +58,8 @@ namespace WarGame
             nextStep.second < 0 || nextStep.second >= board[0].size())
             throw std::invalid_argument("invalid step");
 
-        board[nextStep.first][nextStep.second] = current;
-        current = nullptr;
+        board[nextStep.first][nextStep.second] = board[source.first][source.second];
+        board[source.first][source.second] = nullptr;
         board[nextStep.first][nextStep.second]->attack(this->board, nextStep);
     }
 
