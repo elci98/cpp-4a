@@ -19,11 +19,9 @@
 
 namespace WarGame {
 
-		DemoGame::DemoGame() 
+		DemoGame::DemoGame() :board(8,8)
 		{
 			// Add soldiers for player 1:
-			Board b(8,8);
-			this->board = b;
 			assert(!board.has_soldiers(1));
 			board[{0,1}] = new FootSoldier(1);
 			board[{0,3}] = new FootCommander(1);

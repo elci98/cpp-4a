@@ -15,17 +15,18 @@ protected:
     Soldier(int h, int d, int _id, int team) : health(h), damage(d), id(_id), team_id(team){};
     Soldier *findClosest(vector<vector<Soldier *>> &board, pair<int, int> location)
     {
-        double min = INT64_MAX;
+        double min = 10000000;
         Soldier *This = board[location.first][location.second];
         Soldier *closest = nullptr;
-        for (size_t i = 0; board.size(); i++)
+        for (size_t i = 0; i < board.size(); i++)
         {
-            for (size_t j = 0; board[i].size(); j++)
+            for (size_t j = 0; j < board[i].size(); j++)
             {
-                if (board[i][j] == nullptr)continue; //skip on empty places
+                if (board[i][j] == nullptr)
+                    continue; //skip on empty places
                 if (board[i][j]->getTeamId() == This->getTeamId())
                     continue; // skip on soldiers from the same team
-                double t = This->distance(location, {i, j});
+                double t = distance(location, {i, j});
                 if (t < min)
                 {
                     min = t;

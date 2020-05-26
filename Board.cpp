@@ -7,7 +7,7 @@ namespace WarGame
     {
         if (board[l.first][l.second] == nullptr)
             return board[l.first][l.second];
-        throw std::invalid_argument( "this location is occupied\n");
+        throw std::invalid_argument("this location is occupied\n");
     }
 
     Soldier *Board::operator[](std::pair<int, int> l) const
