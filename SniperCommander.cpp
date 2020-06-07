@@ -7,15 +7,17 @@ void SniperCommander::hesoyam()
 void SniperCommander::attack(vector<vector<Soldier *>> &board, pair<int, int> location)
 {
     Soldier *enemy = nullptr;
-    int max = 0;
+    int max = 0, first = 0, second = 0;
+    vector<Soldier *> v;
     for (size_t i = 0; i < board.size(); i++)
         for (size_t j = 0; j < board[i].size(); j++)
         {
-            Soldier* current = board[i][j];
-            if(current == nullptr)continue;
+            Soldier *current = board[i][j];
+            if (current == nullptr)
+                continue;
             // arbitrary we chose id number 3 to represent Sniper
             if (current->getTeamId() == this->getTeamId() && current->getId() == 3)
-                current->attack(board, {i, j});
+                v.push_back(current);
             if (current->getTeamId() != this->getTeamId())
             {
                 int h = current->getHealth();
@@ -23,17 +25,22 @@ void SniperCommander::attack(vector<vector<Soldier *>> &board, pair<int, int> lo
                 {
                     enemy = current;
                     max = h;
+                    first = i;
+                    second = j;
                 }
             }
         }
-
-    if (enemy != nullptr)
-        enemy->setHealth(enemy->getHealth() - this->damage);
-    else
-        return;
+    enemy = board[first][second];
+    if(enemy == nullptr)return;
+    enemy->setHealth(enemy->getHealth() - this->damage);
     if (enemy->getHealth() <= 0)
     {
         cout << "player " << enemy->getTeamId() << " were sorry, you have lost a soldier\n";
-        enemy = nullptr;
+        board[first][second] = nullptr;
+    }
+
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        v.at(i)->attack(board, location);
     }
 }

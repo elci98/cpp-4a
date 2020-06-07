@@ -13,11 +13,11 @@ protected:
     Soldier(int teamId) : team_id(teamId){};
     Soldier(){};
     Soldier(int h, int d, int _id, int team) : health(h), damage(d), id(_id), team_id(team){};
-    Soldier *findClosest(vector<vector<Soldier *>> &board, pair<int, int> location)
+    Soldier **findClosest(vector<vector<Soldier *>> &board, pair<int, int> location)
     {
         double min = 10000000;
         Soldier *This = board[location.first][location.second];
-        Soldier *closest = nullptr;
+        Soldier **closest = nullptr;
         for (size_t i = 0; i < board.size(); i++)
         {
             for (size_t j = 0; j < board[i].size(); j++)
@@ -30,7 +30,7 @@ protected:
                 if (t < min)
                 {
                     min = t;
-                    closest = board[i][j];
+                    closest = &board[i][j];
                 }
             }
         }
